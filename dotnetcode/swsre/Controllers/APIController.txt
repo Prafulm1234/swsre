@@ -1,0 +1,111 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using #ProjectModels;
+
+namespace #ProjectControllers
+{
+    [Route("#Routeprefix")]
+    [ApiController]
+    public class #APIController : ControllerBase
+    {
+        private readonly #dbContext _context;
+
+        public #APIController(#dbContext context)
+        {
+            _context = context;
+        }
+		
+#g001
+#g001   [HttpGet]
+
+#g001   public async Task<ActionResult<List<#Entity>>> #GetAllMethodName()
+#g001   {
+#g001		return Ok(await _context.#EntContext.ToListAsync());
+#g001   }
+		
+#g001		
+#g002
+
+#g002   [HttpGet("{id}")]
+#g002   public async Task<ActionResult<#Entity>> #GetPathPrmMethodName(int id)
+#g002   {
+#g002       var detailsObj = await _context.#EntContext.FindAsync(id);
+
+#g002       if (detailsObj == null)
+#g002       {
+#g002        	return NotFound();
+#g002		}
+
+#g002       return detailsObj;
+#g002	}
+		
+#g002		
+#p001
+
+#p001	[HttpPut("{id}")]
+
+#p001	public async Task<IActionResult> #PutPathPrmMethodName(int id, #Entity mdlPyload)
+#p001	{
+#p001		if (id != mdlPyload.#pathParamID)
+#p001		{
+#p001		 	return BadRequest();
+#p001		}
+
+#p001		_context.Entry(mdlPyload).State = EntityState.Modified;
+
+#p001		try
+#p001		{
+#p001			await _context.SaveChangesAsync();
+#p001		}
+#p001		catch (DbUpdateConcurrencyException)
+#p001		{
+#p001			if (!EntityDetailsExists(id))
+#p001			{
+#p001	 			return NotFound();
+#p001			} 
+#p001			else
+#p001			{
+#p001				throw;
+#p001			}
+#p001		}
+
+#p001		return NoContent();
+#p001	}
+		
+#p001		
+#t001
+#t001	[HttpPost]
+
+#t001	public async Task<ActionResult<Store>> #PostMethodName(#Entity mdlPostPyload)
+#t001	{
+#t001		_context.#EntContext.Add(mdlPostPyload);
+#t001		await _context.SaveChangesAsync();
+#t001		return CreatedAtAction("#GetAllMethodName", new { id = mdlPostPyload.#PrmKey }, mdlPostPyload);
+#t001	}
+		
+#t001
+#d001
+
+#d001	[HttpDelete]
+#d001	public async Task<IActionResult> DeleteStoreDetails(int id)
+#d001	{
+#d001		var detailsObj = await _context.#EntContext.FindAsync(id);
+#d001		if (detailsObj != null)
+#d001		{
+#d001			return NotFound();
+#d001		}
+#d001		_context.#EntContext.Remove(detailsObj);
+#d001		await _context.SaveChangesAsync();
+
+#d001		return NoContent();
+#d001	}
+		
+#d001
+
+#p001   private bool EntityDetailsExists(int id)
+#p001	{
+#p001		return _context.#EntContext.Any(e => e.#pathParamID == id);
+#p001	}        
+
+    }
+}

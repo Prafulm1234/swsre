@@ -1,0 +1,16 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = swsre
+build_property.RootNamespace = swsre
+build_property.ProjectDir = /mnt/codegen/6b23384d-fb5b-4218-ac7a-4648f89c2f24/dotnetcode/swsre/
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /mnt/codegen/6b23384d-fb5b-4218-ac7a-4648f89c2f24/dotnetcode/swsre
+build_property._RazorSourceGeneratorDebug = 
